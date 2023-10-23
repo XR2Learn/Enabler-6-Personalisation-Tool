@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  personalisation-tool:
+    image: some.registry.com/xr2learn-enablers/personalisation-tool:latest
+    build:
+      context: 'Personalisation_Tool'
+      dockerfile: 'Dockerfile'
+    volumes:
+      - "./Personalisation_Tool:/app"
+      - "./datasets:/app/datasets"
+      - "./configuration.json:/app/configuration.json"
+    working_dir: /app
+    environment:
+      - EXPERIMENT_ID=${EXPERIMENT_ID}
+    #    entrypoint: /bin/sh -c
+    command: python personalisation_tool/suggest_activity_level.py
+
