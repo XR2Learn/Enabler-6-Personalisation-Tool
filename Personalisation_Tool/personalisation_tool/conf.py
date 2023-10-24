@@ -15,6 +15,9 @@ EXPERIMENT_ID = config('EXPERIMENT_ID', default='dev_model')
 datasets_folder = os.path.join(MAIN_FOLDER, 'datasets')
 DATASETS_FOLDER = config('DATASETS_FOLDER', default=datasets_folder)
 
+REDIS_PORT = config('REDIS_PORT', default='6379')
+REDIS_HOST = config('REDIS_HOST', default='localhost')
+
 # Yet to check if this is really necessary, maybe only for cases where passing values as ENV VARS is too cumbersome
 # e.g. [[1, 'a', ],['789', 'o', 9]] would be very annoying to write and parse.
 CUSTOM_SETTINGS = {
