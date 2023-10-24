@@ -11,11 +11,15 @@ class PersonalisationTool:
         self.sub_event_types = {'start_activity': self.handle_start_activity,
                                 'end_activity': self.handle_end_activity,
                                 'emotion': self.handle_emotion}
+        self.id_current_activity = None
+        self.user_level = None
+        self.activity_level = None
+        self.emotions_session = []
 
-    def recommend_level(self):
+    def recommend_level(self, emotions, user_level, activity_level, id_previous_activity):
         event_type = 'next_activity_level'
         event_data = {
-            'id': 0,
+            'id': id_previous_activity,
             'next_activity_level': 1
         }
         json_message = json.dumps(event_data)
@@ -24,19 +28,38 @@ class PersonalisationTool:
 
     def run(self):
         self.pubsub.subscribe(**self.sub_event_types)
+        # Keep listening for subscribed events
         for message in self.pubsub.listen():
-            # print(message)
             pass
 
     def handle_start_activity(self, message):
+        message_dict = self._decode_message_to_dict(message['data'])
+        self.id_current_activity = int(message_dict['id'])
+        self.user_level = message_dict['user_level']
+        self.activity_level = message_dict['activity_level']
+        print('Starting Activity Session')
         print(message['data'])
 
     def handle_end_activity(self, message):
         print(message['data'])
-        print(self.recommend_level())
+        print(
+            self.recommend_level(self.emotions_session, self.user_level, self.activity_level, self.id_current_activity))
+        self.emotions_session = []
+        self.id_current_activity = None
+        self.user_level = None
+        self.activity_level = None
 
     def handle_emotion(self, message):
+        if self.id_current_activity is not None:
+            message_dict = self._decode_message_to_dict(message['data'])
+            self.emotions_session.append(message_dict['emotion'])
         print(message['data'])
+        print(self.emotions_session)
+
+    def _decode_message_to_dict(self, message):
+        message_str = message['data'].decode('utf-8')
+        message_dict = json.loads(message_str)
+        return message_dict
 
 
 if __name__ == '__main__':

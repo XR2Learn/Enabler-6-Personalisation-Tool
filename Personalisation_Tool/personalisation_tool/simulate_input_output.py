@@ -35,6 +35,15 @@ class SimulateInputOutput:
         }
         print(self.publish_simulated_activity_session(event_type, event_data))
 
+        time.sleep(4)
+        for i in range(5):
+            event_type = 'emotion'
+            event_data = {
+                'emotion': i % 3,  # 1 is flow
+            }
+            print(self.publish_simulated_activity_session(event_type, event_data))
+            time.sleep(2)
+
     def publish_simulated_activity_session(self, event_type, event_data):
         json_message = json.dumps(event_data)
         result = redis_cli.publish(event_type, json_message)
@@ -46,7 +55,7 @@ class SimulateInputOutput:
 
     def handle_next_activity_level(self, message):
         print(message['data'])
-        self.sub_thread.stop()
+        # self.sub_thread.stop()
 
 
 if __name__ == '__main__':
