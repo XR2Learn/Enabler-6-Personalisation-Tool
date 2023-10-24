@@ -1,5 +1,10 @@
 version: '3.8'
 services:
+  redis:
+    image: redis:7.2.2
+    ports:
+      - "6379:6379"
+
   personalisation-tool:
     image: some.registry.com/xr2learn-enablers/personalisation-tool:latest
     build:
@@ -14,4 +19,6 @@ services:
       - EXPERIMENT_ID=${EXPERIMENT_ID}
     #    entrypoint: /bin/sh -c
     command: python personalisation_tool/suggest_activity_level.py
+    depends_on:
+      - redis
 
