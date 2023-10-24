@@ -41,13 +41,13 @@ class PersonalisationTool:
         print(message['data'])
 
     def handle_end_activity(self, message):
-        print(message['data'])
         print(
             self.recommend_level(self.emotions_session, self.user_level, self.activity_level, self.id_current_activity))
         self.emotions_session = []
         self.id_current_activity = None
         self.user_level = None
         self.activity_level = None
+        print(message['data'])
 
     def handle_emotion(self, message):
         if self.id_current_activity is not None:
@@ -57,7 +57,7 @@ class PersonalisationTool:
         print(self.emotions_session)
 
     def _decode_message_to_dict(self, message):
-        message_str = message['data'].decode('utf-8')
+        message_str = message.decode('utf-8')
         message_dict = json.loads(message_str)
         return message_dict
 

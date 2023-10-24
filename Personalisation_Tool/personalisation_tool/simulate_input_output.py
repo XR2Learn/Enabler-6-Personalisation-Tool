@@ -55,7 +55,7 @@ class SimulateInputOutput:
 
     def handle_next_activity_level(self, message):
         print(message['data'])
-        # self.sub_thread.stop()
+        self.sub_thread.stop()
 
 
 if __name__ == '__main__':
