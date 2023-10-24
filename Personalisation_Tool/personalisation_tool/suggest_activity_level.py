@@ -1,5 +1,6 @@
 # Your Python code here
 import redis
+import json
 from conf import REDIS_PORT, REDIS_HOST
 
 
@@ -12,7 +13,14 @@ class PersonalisationTool:
                                 'emotion': self.handle_emotion}
 
     def recommend_level(self):
-        return 1
+        event_type = 'next_activity_level'
+        event_data = {
+            'id': 0,
+            'next_activity_level': 1
+        }
+        json_message = json.dumps(event_data)
+        result = redis_cli.publish(event_type, json_message)
+        return result
 
     def run(self):
         self.pubsub.subscribe(**self.sub_event_types)
@@ -25,6 +33,7 @@ class PersonalisationTool:
 
     def handle_end_activity(self, message):
         print(message['data'])
+        print(self.recommend_level())
 
     def handle_emotion(self, message):
         print(message['data'])
