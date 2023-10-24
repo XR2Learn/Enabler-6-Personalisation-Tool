@@ -1,13 +1,12 @@
 # Your Python code here
 import redis
-from conf import MAIN_FOLDER, REDIS_PORT, REDIS_HOST
+from conf import REDIS_PORT, REDIS_HOST
 
 
 class PersonalisationTool:
     def __init__(self, redis_cli):
         self.redis_cli = redis_cli
         self.pubsub = self.redis_cli.pubsub()
-        # self.sub_event_types = ['start_activity', 'end_activity', 'emotion']
         self.sub_event_types = {'start_activity': self.handle_start_activity,
                                 'end_activity': self.handle_end_activity,
                                 'emotion': self.handle_emotion}
@@ -32,7 +31,6 @@ class PersonalisationTool:
 
 
 if __name__ == '__main__':
-    # call_component()
     redis_cli = redis.Redis(port=REDIS_PORT, host=REDIS_HOST)
     personalisation_tool = PersonalisationTool(redis_cli)
     personalisation_tool.run()
