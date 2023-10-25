@@ -1,7 +1,8 @@
+import json
 import time
 from random import randint
+
 import redis
-import json
 
 from personalisation_tool.conf import REDIS_HOST, REDIS_PORT
 
@@ -14,6 +15,7 @@ class SimulateInputOutput:
                                 'debug_considered_emotions': self.handle_debug_considered_emotions}
 
     def run(self):
+        time.sleep(5)
         self.subscribe_suggested_activity_level()
         event_type = 'start_activity'
         event_data = {
@@ -21,7 +23,7 @@ class SimulateInputOutput:
             'user_level': 0,
             'activity_level': randint(0, 50) % 3
         }
-        print(self.publish_simulated_activity_session(event_type, event_data))
+        self.publish_simulated_activity_session(event_type, event_data)
 
         for i in range(6):
             value = randint(0, 50)

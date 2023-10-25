@@ -12,12 +12,9 @@ services:
       dockerfile: 'Dockerfile'
     volumes:
       - "./Personalisation_Tool:/app"
-      - "./datasets:/app/datasets"
-      - "./configuration.json:/app/configuration.json"
     working_dir: /app
     environment:
-      - EXPERIMENT_ID=${EXPERIMENT_ID}
-    #    entrypoint: /bin/sh -c
+      - REDIS_HOST=${REDIS_HOST}
     command: python personalisation_tool/suggest_activity_level.py
     depends_on:
       - redis

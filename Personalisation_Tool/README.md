@@ -7,13 +7,10 @@ Personalisation Tool (Enabler 6)
 personalisation-tool:
     image: some.registry.com/xr2learn-enablers/personalisation-tool:latest
     build:
-      context: '<<component>>/<<project_folder>>'
+      context: 'Personalisation_Tool'
       dockerfile: 'Dockerfile'
     volumes:
-      - "./<<component>>/<<project_folder>>:/app"
-      - "./datasets:/app/datasets"
-      - "./outputs:/app/outputs"
-      - "./configuration.json:/app/configuration.json"
+      - "./Personalisation_Tool:/app"
     working_dir: /app
     environment:
       # To include environment variables in the format below
