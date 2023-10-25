@@ -6,4 +6,10 @@ This repository implements Enabler 6 for the XR2Learn project.
 1. Clone the repository
 2. Create a configuration.json file by copying from example.configuration.json by running:
   
-   ` cp example.configuration.json configuration.json`
+   `cp example.configuration.json configuration.json`
+
+# Local Development
+1. Run Redis docker 
+
+   `docker compose up redis`
+
