@@ -1,6 +1,6 @@
-# XR2Learn Enabler 6
-This repository implements Enabler 6 for the XR2Learn project.
-
+# XR2Learn Enabler 6: Personalisation Tool
+This repository implements Enabler 6 for the XR2Learn project, the personalisation tool. 
+The personalisation tool automatically provides suggestions for the adjustment of an activity level based on emotions classified by the other Enablers components. 
 
 # Install 
 1. Clone the repository
