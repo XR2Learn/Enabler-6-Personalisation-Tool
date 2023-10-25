@@ -1,6 +1,7 @@
 # Your Python code here
 import redis
 import json
+from statistics import mode
 from conf import REDIS_PORT, REDIS_HOST
 
 
@@ -17,10 +18,23 @@ class PersonalisationTool:
         self.emotions_session = []
 
     def recommend_level(self, emotions, user_level, activity_level, id_previous_activity):
+        prevalent_emotion = mode(emotions)
+        print(f'Most prevalent emotion: {prevalent_emotion}')
+
+        if prevalent_emotion == 0:
+            next_activity_level = activity_level + 1 if activity_level < 2 else activity_level
+        elif prevalent_emotion == 1:
+            next_activity_level = activity_level
+        else:
+            next_activity_level = activity_level - 1 if activity_level > 1 else activity_level
+
+        self.publish_recommended_level(id_previous_activity, next_activity_level)
+
+    def publish_recommended_level(self, id_previous_activity, next_activity_level):
         event_type = 'next_activity_level'
         event_data = {
             'id': id_previous_activity,
-            'next_activity_level': 1
+            'next_activity_level': next_activity_level
         }
         json_message = json.dumps(event_data)
         result = redis_cli.publish(event_type, json_message)

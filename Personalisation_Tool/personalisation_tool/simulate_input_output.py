@@ -1,7 +1,13 @@
 import time
+from random import seed
+from random import randint
 import redis
 import json
+# generate random integer values
+
 from personalisation_tool.conf import REDIS_HOST, REDIS_PORT
+
+seed(1)
 
 
 class SimulateInputOutput:
@@ -15,15 +21,16 @@ class SimulateInputOutput:
         event_type = 'start_activity'
         event_data = {
             'id': 0,
-            'user_level': 0,  # 0 is beginner
-            'activity_level': 0  # 0 is easy
+            'user_level': 0,
+            'activity_level': randint(0, 50) % 3
         }
         print(self.publish_simulated_activity_session(event_type, event_data))
 
-        for i in range(5):
+        for i in range(6):
+            value = randint(0, 50)
             event_type = 'emotion'
             event_data = {
-                'emotion': i % 3,  # 1 is flow
+                'emotion': value % 3,  # 1 is flow
             }
             print(self.publish_simulated_activity_session(event_type, event_data))
             time.sleep(2)
@@ -36,10 +43,11 @@ class SimulateInputOutput:
         print(self.publish_simulated_activity_session(event_type, event_data))
 
         time.sleep(4)
-        for i in range(5):
+        for i in range(3):
+            value = randint(0, 50)
             event_type = 'emotion'
             event_data = {
-                'emotion': i % 3,  # 1 is flow
+                'emotion': value % 3,  # 1 is flow
             }
             print(self.publish_simulated_activity_session(event_type, event_data))
             time.sleep(2)
@@ -62,4 +70,5 @@ if __name__ == '__main__':
     redis_cli = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)
 
     simulate_input = SimulateInputOutput(redis_cli)
-    simulate_input.run()
+    for _ in range(3):
+        simulate_input.run()
