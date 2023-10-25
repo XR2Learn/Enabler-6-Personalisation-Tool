@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+{% block title %}Enabler 6 DEMO{% endblock %}
+
+{% block page_content_title %}Personalisation Tool Demo{% endblock %}
+
+{% block page_content_rows %}
+<div class="row">
+    <div class="col-xl-4 col-lg-3">
+        <div class="card shadow mb-4">
+
+            <!-- Card Header - Dropdown -->
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Unity:</h6>
+
+                <span class="btn-dark btn-square">
+                    <i class="fas fa-gamepad"></i>
+                </span>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body d-flex justify-content-center">
+
+                <form name="add_publisher">
+                    <div class="form-group">
+                        <label for="user_level"> Subscriber ID: </label>
+                        <input type="text" id="user_level" name="user_level" value="sub_id" class="form-control form-control-user">
+                    </div>
+                    <div class="form-group">
+                        <label for="subscriber_id"> Subscriber ID: </label>
+                        <input type="text" id="subscriber_id" name="subscriber_id" value="sub_id" class="form-control form-control-user">
+                    </div>
+                    <button type="submit"  id="register_subscriber" class="btn btn-primary">Add Query</button>
+                </form>
+
+                <button type="button" class="btn btn-primary">Start Activity</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-4 col-lg-3">
+        <div class="card shadow mb-4">
+
+            <!-- Card Header - Dropdown -->
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Emotion Detection:</h6>
+
+                <span  class="btn-warning btn-square">
+                    <i class="fas fa-smile"></i>
+                </span>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body d-flex justify-content-center">
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-4 col-lg-3">
+        <div class="card shadow mb-4">
+
+            <!-- Card Header - Dropdown -->
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Personalisation Tool:</h6>
+
+                <span  class="btn-success btn-square">
+                    <i class="fas fa-heart"></i>
+                </span>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body d-flex justify-content-center">
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="row">
+
+
+    <div class="col-xl-12 col-lg-11">
+        <!-- Collapsable Card Example -->
+        <div class="card shadow mb-4">
+            <!-- Card Header - Accordion -->
+            <a href="#log_event_messages_collapse" class="d-block card-header py-3" data-toggle="collapse"
+                role="button" aria-expanded="false" aria-controls="log_event_messages_collapse">
+                <h6 class="m-0 font-weight-bold text-primary">Connection Details:
+                    <span id="events_received" class="badge badge-danger badge-counter">0</span>
+                    <span id="connecting_status" class="btn-warning btn-circle">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </span>
+                </h6>
+            </a>
+            <!-- Card Content - Collapse -->
+            <div class="collapse hide" id="log_event_messages_collapse">
+                <div class="card-body">
+
+                    <div class="form-group">
+                        <label for="message_pane">Last Event Message:</label>
+                        <textarea class="form-control" id="message_pane" cols="70" rows="15" disabled></textarea>
+                        <div id="ws_log" class="d-flex justify-content-center"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block body_end_extra_scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+<script type="text/javascript" charset="utf-8">
+
+    var events_received = 0;
+
+    function change_connection_css(element, connected){
+        var connection_open_outer_css = "btn-success";
+        var connection_open_inner_css = "fa-check";
+        var connection_close_outer_css = "btn-warning";
+        var connection_close_inner_css= "fa-exclamation-triangle";
+        if(connected){
+            element.removeClass(connection_close_outer_css).children('i').eq(0).removeClass(connection_close_inner_css);
+            element.addClass(connection_open_outer_css).children('i').eq(0).addClass(connection_open_inner_css);
+        }else{
+            element.removeClass(connection_open_outer_css).children('i').eq(0).removeClass(connection_open_inner_css);
+            element.addClass(connection_close_outer_css).children('i').eq(0).addClass(connection_close_inner_css);
+        }
+    }
+
+
+    function send_start_activity(user_level, activity_level){
+        event_data = {
+            'id': 0,
+            'user_level': user_level,  // 0 is beginner
+            'activity_level': activity_level  // 0 is easy
+        }
+        socket.emit(
+            'pub_event',
+            {
+                'event_type': '{{ START_ACTIVITY_EVENT_TYPE }}',
+                'data': event_data
+            }
+        )
+    }
+    function send_emotion(emotion){
+        event_data = {
+            'emotion': emotion,  // 1 is flow
+        }
+        socket.emit(
+            'pub_event',
+            {
+                'event_type': '{{ EMOTION_EVENT_TYPE }}',
+                'data': event_data
+            }
+        )
+    }
+    function send_stop_activity(){
+        event_data = {
+            'id': 0,
+            'timestamp': Date.now()
+        }
+        socket.emit(
+            'pub_event',
+            {
+                'event_type': '{{ END_ACTIVITY_EVENT_TYPE }}',
+                'data': event_data
+            }
+        )
+    }
+
+
+    var socket = io();
+    socket.on('connect', function() {
+        console.log('connected!');
+        change_connection_css($('#connecting_status'), true);
+    });
+
+
+    socket.on('disconnect', function() {
+        console.log('disconnected!');
+        change_connection_css($('#connecting_status'), false);
+    });
+
+    // Event handler for server sent data.
+    // The callback function is invoked whenever the server emits data
+    // to the client. The data is then displayed in the "Received"
+    // section of the page.
+    socket.on('ws_log', function(msg, cb) {
+        console.log('ws_log!');
+        $('#ws_log').append('<br>' + $('<div/>').text('Received #' + msg.count + ': ' + msg.data).html());
+        if (cb)
+            cb();
+    });
+
+    socket.on('{{ NEXT_ACTIVITY_LEVEL_EVENT_TYPE }}', function(msg, cb) {
+        console.log('{{ NEXT_ACTIVITY_LEVEL_EVENT_TYPE }}!');
+        events_received += 1;
+        $('#events_received').text(events_received);
+        var prettyJSONstr = JSON.stringify(msg.data, null, 2);
+        $('#message_pane').val(prettyJSONstr);
+    });
+
+</script>
+{% endblock %}

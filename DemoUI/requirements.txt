@@ -1,0 +1,4 @@
+python-decouple==3.6
+Flask-SocketIO==5.3.6
+flask==3.0.0
+redis==5.0.1
