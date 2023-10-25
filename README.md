@@ -20,9 +20,9 @@ This repository implements Enabler 6 for the XR2Learn project.
 
        `docker compose down`
    
-   2. Run 
+2. Run 
 
-      `python personalisation_tool/suggest_activity_level.py`
+   `python personalisation_tool/suggest_activity_level.py`
 
 3. Run (in another terminal tab) 
 
