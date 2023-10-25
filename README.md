@@ -37,6 +37,7 @@ This repository implements Enabler 6 for the XR2Learn project.
 2. Run the simulate input/output script in background
 
 `python personalisation_tool/simulate_input_output.py > out.txt &`
+
 3. Run suggest activity level script
 
 `python personalisation_tool/suggest_activity_level.py`
