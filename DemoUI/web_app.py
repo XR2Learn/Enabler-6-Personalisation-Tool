@@ -19,7 +19,8 @@ from conf import (
     START_ACTIVITY_EVENT_TYPE,
     EMOTION_EVENT_TYPE,
     END_ACTIVITY_EVENT_TYPE,
-    NEXT_ACTIVITY_LEVEL_EVENT_TYPE
+    NEXT_ACTIVITY_LEVEL_EVENT_TYPE,
+    DEBUG_CONSIDERED_EMOTIONS_EVENT_TYPE,
 )
 
 
@@ -28,6 +29,7 @@ TEMPLATE_CONTEXT_CONFS = {
     'END_ACTIVITY_EVENT_TYPE': END_ACTIVITY_EVENT_TYPE,
     'EMOTION_EVENT_TYPE': EMOTION_EVENT_TYPE,
     'NEXT_ACTIVITY_LEVEL_EVENT_TYPE': NEXT_ACTIVITY_LEVEL_EVENT_TYPE,
+    'DEBUG_CONSIDERED_EMOTIONS_EVENT_TYPE': DEBUG_CONSIDERED_EMOTIONS_EVENT_TYPE,
 }
 
 
@@ -58,7 +60,7 @@ def index():
 
 @socketio.on("connect")
 def confirm_connect(auth):
-    socketio.emit("ws_log", {"data": 'connected', 'count': 1})
+    socketio.emit("ws_log", {"data": 'connected'})
 
 
 @socketio.event

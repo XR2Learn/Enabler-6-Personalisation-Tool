@@ -5,7 +5,8 @@ from conf import (
     EMOTION_EVENT_TYPE,
     START_ACTIVITY_EVENT_TYPE,
     END_ACTIVITY_EVENT_TYPE,
-    NEXT_ACTIVITY_LEVEL_EVENT_TYPE
+    NEXT_ACTIVITY_LEVEL_EVENT_TYPE,
+    DEBUG_CONSIDERED_EMOTIONS_EVENT_TYPE
 )
 
 
@@ -16,11 +17,11 @@ class PubSub():
         self.socket_app.pub_sub = self
 
         self.sub_event_types = {
-            NEXT_ACTIVITY_LEVEL_EVENT_TYPE: self.handle_next_activity_level
+            NEXT_ACTIVITY_LEVEL_EVENT_TYPE: self.handle_next_activity_level,
+            DEBUG_CONSIDERED_EMOTIONS_EVENT_TYPE: self.handle_debug_next_activity_level
         }
         self.pubsub = self.redis_cli.pubsub()
         self.pubsub.subscribe(**self.sub_event_types)
-        self.count = 0
 
     # def subscribe_suggested_activity_level(self):
     #     self.pubsub.subscribe(**self.sub_event_types)
@@ -68,7 +69,16 @@ class PubSub():
                 'data': data,
             }
         )
-        self.count += 1
+
+    def handle_debug_next_activity_level(self, message):
+        data = self.decode_message_data(message)
+
+        self.socket_app.emit(
+            DEBUG_CONSIDERED_EMOTIONS_EVENT_TYPE,
+            {
+                'data': data,
+            }
+        )
 
     def process_sub_messages(self):
         msgs = self.pubsub.get_message()
