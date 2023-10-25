@@ -57,6 +57,7 @@ class PersonalisationTool:
         print(message['data'])
 
     def handle_end_activity(self, message):
+        print('Ending Activity Session')
         next_activity_level = self.calculate_recommended_level(self.emotions_session,
                                                                self.activity_level)
         self.publish_recommended_level(self.id_current_activity, next_activity_level)
