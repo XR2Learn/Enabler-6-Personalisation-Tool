@@ -17,7 +17,7 @@ class PersonalisationTool:
         self.activity_level = None
         self.emotions_session = []
 
-    def recommend_level(self, emotions, user_level, activity_level, id_previous_activity):
+    def recommended_level_calculation(self, emotions, activity_level):
         most_frequent_emotion = mode(emotions)
         print(f'Most prevalent emotion: {most_frequent_emotion}')
 
@@ -28,7 +28,7 @@ class PersonalisationTool:
         else:
             next_activity_level = activity_level - 1 if activity_level > 1 else activity_level
 
-        self.publish_recommended_level(id_previous_activity, next_activity_level)
+        return next_activity_level
 
     def publish_recommended_level(self, id_previous_activity, next_activity_level):
         event_type = 'next_activity_level'
@@ -55,8 +55,9 @@ class PersonalisationTool:
         print(message['data'])
 
     def handle_end_activity(self, message):
-        print(
-            self.recommend_level(self.emotions_session, self.user_level, self.activity_level, self.id_current_activity))
+        next_activity_level = self.recommended_level_calculation(self.emotions_session,
+                                                                 self.activity_level)
+        self.publish_recommended_level(self.id_current_activity, next_activity_level)
         self.emotions_session = []
         self.id_current_activity = None
         self.user_level = None
