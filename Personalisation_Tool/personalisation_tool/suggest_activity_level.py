@@ -67,6 +67,14 @@ class PersonalisationTool:
         if self.id_current_activity is not None:
             message_dict = self._decode_message_to_dict(message['data'])
             self.emotions_session.append(message_dict['emotion'])
+
+        event_type = 'debug_considered_emotions'
+        event_data = {
+            'emotions_session': self.emotions_session
+        }
+        json_message = json.dumps(event_data)
+        redis_cli.publish(event_type, json_message)
+
         print(message['data'])
         print(self.emotions_session)
 

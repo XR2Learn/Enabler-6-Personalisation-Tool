@@ -1,20 +1,17 @@
 import time
-from random import seed
 from random import randint
 import redis
 import json
-# generate random integer values
 
 from personalisation_tool.conf import REDIS_HOST, REDIS_PORT
-
-seed(1)
 
 
 class SimulateInputOutput:
     def __init__(self, redis_cli):
         self.redis_cli = redis_cli
         self.pubsub = self.redis_cli.pubsub()
-        self.sub_event_types = {'next_activity_level': self.handle_next_activity_level}
+        self.sub_event_types = {'next_activity_level': self.handle_next_activity_level,
+                                'debug_considered_emotions': self.handle_debug_considered_emotions}
 
     def run(self):
         self.subscribe_suggested_activity_level()
@@ -64,6 +61,9 @@ class SimulateInputOutput:
     def handle_next_activity_level(self, message):
         print(message['data'])
         self.sub_thread.stop()
+
+    def handle_debug_considered_emotions(self, message):
+        print(message['data'])
 
 
 if __name__ == '__main__':
