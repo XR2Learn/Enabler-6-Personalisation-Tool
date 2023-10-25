@@ -11,5 +11,8 @@ This repository implements Enabler 6 for the XR2Learn project.
 # Local Development
 1. Run Redis docker 
 
-   `docker compose up redis`
+   `docker compose up redis -d`
+2. To stop Redis docker 
+
+    `docker compose down`
 
