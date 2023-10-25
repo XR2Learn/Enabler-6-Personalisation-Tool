@@ -1,8 +1,10 @@
 # Your Python code here
-import redis
 import json
 from statistics import mode
-from conf import REDIS_PORT, REDIS_HOST
+
+import redis
+
+from personalisation_tool.conf import REDIS_PORT, REDIS_HOST
 
 
 class PersonalisationTool:
@@ -17,7 +19,7 @@ class PersonalisationTool:
         self.activity_level = None
         self.emotions_session = []
 
-    def recommended_level_calculation(self, emotions, activity_level):
+    def calculate_recommended_level(self, emotions, activity_level):
         most_frequent_emotion = mode(emotions)
         print(f'Most prevalent emotion: {most_frequent_emotion}')
 
@@ -26,7 +28,7 @@ class PersonalisationTool:
         elif most_frequent_emotion == 1:
             next_activity_level = activity_level
         else:
-            next_activity_level = activity_level - 1 if activity_level > 1 else activity_level
+            next_activity_level = activity_level - 1 if activity_level > 0 else activity_level
 
         return next_activity_level
 
@@ -55,8 +57,8 @@ class PersonalisationTool:
         print(message['data'])
 
     def handle_end_activity(self, message):
-        next_activity_level = self.recommended_level_calculation(self.emotions_session,
-                                                                 self.activity_level)
+        next_activity_level = self.calculate_recommended_level(self.emotions_session,
+                                                               self.activity_level)
         self.publish_recommended_level(self.id_current_activity, next_activity_level)
         self.emotions_session = []
         self.id_current_activity = None
