@@ -18,12 +18,12 @@ class PersonalisationTool:
         self.emotions_session = []
 
     def recommend_level(self, emotions, user_level, activity_level, id_previous_activity):
-        prevalent_emotion = mode(emotions)
-        print(f'Most prevalent emotion: {prevalent_emotion}')
+        most_frequent_emotion = mode(emotions)
+        print(f'Most prevalent emotion: {most_frequent_emotion}')
 
-        if prevalent_emotion == 0:
+        if most_frequent_emotion == 0:
             next_activity_level = activity_level + 1 if activity_level < 2 else activity_level
-        elif prevalent_emotion == 1:
+        elif most_frequent_emotion == 1:
             next_activity_level = activity_level
         else:
             next_activity_level = activity_level - 1 if activity_level > 1 else activity_level
