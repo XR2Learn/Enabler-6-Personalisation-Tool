@@ -1,6 +1,6 @@
 from decouple import config
 
-REDIS_ADDRESS = config('REDIS_ADDRESS', default='localhost')
+REDIS_HOST = config('REDIS_HOST', default='localhost')
 REDIS_PORT = config('REDIS_PORT', default='6379')
 
 EMOTION_EVENT_TYPE =  config('EMOTION_EVENT_TYPE', default='emotion')

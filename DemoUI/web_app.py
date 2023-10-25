@@ -14,7 +14,7 @@ from flask_socketio import SocketIO, emit
 from pubsub import PubSub
 
 from conf import (
-    REDIS_ADDRESS,
+    REDIS_HOST,
     REDIS_PORT,
     START_ACTIVITY_EVENT_TYPE,
     EMOTION_EVENT_TYPE,
@@ -40,6 +40,7 @@ app.debug = True
 app.config["SECRET_KEY"] = "very hidden secret!"
 # app.use_reloader = False
 socketio = SocketIO(app, async_mode=async_mode)
+
 
 thread = None
 thread_lock = Lock()
@@ -72,7 +73,7 @@ def pub_event(message):
 
 def background_thread():
     socketio.sleep(1)
-    redis_cli = redis.Redis(host=REDIS_ADDRESS, port=REDIS_PORT)
+    redis_cli = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)
     pub_sub = PubSub(redis_cli=redis_cli, socket_app=socketio)
     while True:
         socketio.pub_sub.process_sub_messages()
@@ -83,7 +84,7 @@ def main():
     with thread_lock:
         if thread is None:
             thread = socketio.start_background_task(background_thread)
-    socketio.run(app, host="0.0.0.0", port=8000)
+    socketio.run(app, host="0.0.0.0", port=8000, allow_unsafe_werkzeug = True)
 
 
 
