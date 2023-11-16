@@ -6,7 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added 
-- More user friendly messages with the next activity level. 
+- More user-friendly messages with the next activity level. 
+
+### Fixed 
+- ~~Bug: An error occurring when there is no emotion to consider.~~
 
 ## [0.1.0] - 2023-10-31
 ### Added
@@ -18,6 +21,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - A DemoUI to showcase Enabler 6 functionality.
   - Flask app using websockets (sockets.io)
 - Changelog
+
+### Known Issues
+- Bug: An error occurring when there is no emotion to consider.
 
 <!-- 
 Example of Categories to use in each release
