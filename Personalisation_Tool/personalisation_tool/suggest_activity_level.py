@@ -20,6 +20,9 @@ class PersonalisationTool:
         self.emotions_session = []
 
     def calculate_recommended_level(self, emotions, activity_level):
+        if not emotions:
+            return activity_level
+
         most_frequent_emotion = mode(emotions)
         print(f'Most prevalent emotion: {most_frequent_emotion}')
 
