@@ -1,4 +1,6 @@
-# XR2Learn Enabler 6: Personalisation Tool
+![XR2Learn](https://raw.githubusercontent.com/XR2Learn/.github/5c0fada6136915b389c1cd2151a0dd2cfc4a5aac/images/XR2Learn%20logo.png)
+
+# Enabler 6: Personalisation Tool
 This repository implements Enabler 6 for the XR2Learn project, the personalisation tool. 
 The personalisation tool automatically provides suggestions for the adjustment of an activity level based on emotions classified by the other Enablers components. 
 
