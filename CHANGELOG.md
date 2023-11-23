@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added 
 - More user-friendly messages with the next activity level. 
+- Documentation
 
 ### Fixed 
 - ~~Bug: An error occurring when there is no emotion to consider.~~
