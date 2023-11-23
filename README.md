@@ -28,7 +28,6 @@ The personalisation tool automatically provides suggestions for the adjustment o
 
    `python personalisation_tool/simulate_input_output.py`
 
-
 ## Run inside docker image
 
 1. Enter docker image with bash entrypoint
@@ -41,3 +40,10 @@ The personalisation tool automatically provides suggestions for the adjustment o
 3. Run suggest activity level script
 
 `python personalisation_tool/suggest_activity_level.py`
+
+
+## Run DemoUI + Personalisation tool 
+
+`docker compose up -d`
+
+Go to `http://172.22.0.3:8000/` to access DemoUI. 
