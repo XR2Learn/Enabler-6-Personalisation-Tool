@@ -7,12 +7,7 @@ The personalisation tool automatically provides suggestions for the adjustment o
 # Install 
 1. Clone the repository
 
-2. Create a configuration.json file by copying from example.configuration.json by running:
-  
-   `cp example.configuration.json configuration.json`
-
-# Development
-## Local run
+## Local run (Development focused)
 
 1. Run Redis docker 
 
@@ -30,7 +25,7 @@ The personalisation tool automatically provides suggestions for the adjustment o
 
    `python personalisation_tool/simulate_input_output.py`
 
-## Run inside docker image
+## Run using docker images
 
 1. Enter docker image with bash entrypoint
 
