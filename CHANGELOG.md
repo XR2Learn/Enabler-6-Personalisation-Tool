@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added 
 - More documentation
+- DemoUI v2: with Emotions not simulated anymore, but coming from the multimodal fusion layer component (Inference)
+- DemoUI v3: with Unity App not simulated anymore, but coming from a Unity App. 
+- Three different DemoUI, depending on which component is simulated. 
 
 ## [0.1.1] - 2023-12-06
 ### Added 
