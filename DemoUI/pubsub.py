@@ -18,7 +18,9 @@ class PubSub():
 
         self.sub_event_types = {
             NEXT_ACTIVITY_LEVEL_EVENT_TYPE: self.handle_next_activity_level,
-            DEBUG_CONSIDERED_EMOTIONS_EVENT_TYPE: self.handle_debug_next_activity_level
+            DEBUG_CONSIDERED_EMOTIONS_EVENT_TYPE: self.handle_debug_next_activity_level,
+            START_ACTIVITY_EVENT_TYPE: self.handle_start_activity,
+            END_ACTIVITY_EVENT_TYPE: self.handle_end_activity
         }
         self.pubsub = self.redis_cli.pubsub()
         self.pubsub.subscribe(**self.sub_event_types)
@@ -65,6 +67,24 @@ class PubSub():
         # print(f'Handling "{NEXT_ACTIVITY_LEVEL_EVENT_TYPE}": {data} \n will emit this to socket app. {self.count}')
         self.socket_app.emit(
             NEXT_ACTIVITY_LEVEL_EVENT_TYPE,
+            {
+                'data': data,
+            }
+        )
+
+    def handle_start_activity(self, message):
+        data = self.decode_message_data(message)
+        self.socket_app.emit(
+            START_ACTIVITY_EVENT_TYPE,
+            {
+                'data': data,
+            }
+        )
+
+    def handle_end_activity(self, message):
+        data = self.decode_message_data(message)
+        self.socket_app.emit(
+            END_ACTIVITY_EVENT_TYPE,
             {
                 'data': data,
             }

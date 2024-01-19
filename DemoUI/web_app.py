@@ -23,7 +23,6 @@ from conf import (
     DEBUG_CONSIDERED_EMOTIONS_EVENT_TYPE,
 )
 
-
 TEMPLATE_CONTEXT_CONFS = {
     'START_ACTIVITY_EVENT_TYPE': START_ACTIVITY_EVENT_TYPE,
     'END_ACTIVITY_EVENT_TYPE': END_ACTIVITY_EVENT_TYPE,
@@ -32,7 +31,6 @@ TEMPLATE_CONTEXT_CONFS = {
     'DEBUG_CONSIDERED_EMOTIONS_EVENT_TYPE': DEBUG_CONSIDERED_EMOTIONS_EVENT_TYPE,
 }
 
-
 async_mode = 'threading'
 
 app = Flask(__name__, static_url_path="")
@@ -40,7 +38,6 @@ app.debug = True
 app.config["SECRET_KEY"] = "very hidden secret!"
 # app.use_reloader = False
 socketio = SocketIO(app, async_mode=async_mode)
-
 
 thread = None
 thread_lock = Lock()
@@ -51,6 +48,20 @@ def demo_enabler_six():
     context = TEMPLATE_CONTEXT_CONFS.copy()
     context['active_page'] = 'demo_enabler_six'
     return render_template("demos/enabler_six.html", **context)
+
+
+@app.route("/demo_enabler_six_v1", methods=["get"])
+def demo_enabler_six_v1():
+    context = TEMPLATE_CONTEXT_CONFS.copy()
+    context['active_page'] = 'demo_enabler_six_v1'
+    return render_template("demos/enabler_six_v1.html", **context)
+
+
+@app.route("/demo_enabler_six_v2", methods=["get"])
+def demo_enabler_six_v2():
+    context = TEMPLATE_CONTEXT_CONFS.copy()
+    context['active_page'] = 'demo_enabler_six_v2'
+    return render_template("demos/enabler_six_v2.html", **context)
 
 
 @app.route("/")
@@ -79,13 +90,13 @@ def background_thread():
         socketio.pub_sub.process_sub_messages()
         socketio.sleep(0.01)
 
+
 def main():
     global thread
     with thread_lock:
         if thread is None:
             thread = socketio.start_background_task(background_thread)
-    socketio.run(app, host="0.0.0.0", port=8000, allow_unsafe_werkzeug = True)
-
+    socketio.run(app, host="0.0.0.0", port=8000, allow_unsafe_werkzeug=True)
 
 
 if __name__ == "__main__":
