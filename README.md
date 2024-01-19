@@ -44,3 +44,6 @@ The personalisation tool automatically provides suggestions for the adjustment o
 `docker compose up -d`
 
 Go to `http://172.22.0.3:8000/` to access DemoUI. 
+
+# Changelog
+A list of released versions and the main changes can be found on [Changelog](CHANGELOG.md).
