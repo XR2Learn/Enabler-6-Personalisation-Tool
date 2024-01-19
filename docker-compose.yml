@@ -46,6 +46,7 @@ services:
     environment:
       - EXPERIMENT_ID=${EXPERIMENT_ID:-development-model}
       - REDIS_HOST=redis
+      - PUBLISHER_ON=${PUBLISHER_ON:-true}
     command: python multimodal_fusion_layer/predict.py
     depends_on:
       - redis

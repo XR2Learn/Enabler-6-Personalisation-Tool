@@ -57,6 +57,13 @@ def demo_enabler_six_v1():
     return render_template("demos/enabler_six_v1.html", **context)
 
 
+@app.route("/demo_enabler_six_v2", methods=["get"])
+def demo_enabler_six_v2():
+    context = TEMPLATE_CONTEXT_CONFS.copy()
+    context['active_page'] = 'demo_enabler_six_v2'
+    return render_template("demos/enabler_six_v2.html", **context)
+
+
 @app.route("/")
 def index():
     context = TEMPLATE_CONTEXT_CONFS.copy()
