@@ -22,7 +22,7 @@ class PersonalisationTool:
         if not emotions:
             return activity_level
         # the current schema for calculating the user emotion: using the most frequent emotion.
-        user_emotion = self.get_most_frequent_emotion
+        user_emotion = self.get_most_frequent_emotion(emotions)
 
         # The current schema for personalisation: basic (only considering activity level and user emotions)
         next_activity_level = self.basic_get_recommended_activity_level(user_emotion, activity_level)
