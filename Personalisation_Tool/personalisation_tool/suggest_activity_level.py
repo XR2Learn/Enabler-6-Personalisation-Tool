@@ -3,7 +3,6 @@ import json
 from statistics import mode
 
 import redis
-
 from personalisation_tool.conf import REDIS_PORT, REDIS_HOST
 
 
@@ -22,18 +21,28 @@ class PersonalisationTool:
     def calculate_recommended_level(self, emotions, activity_level):
         if not emotions:
             return activity_level
+        # the current schema for calculating the user emotion: using the most frequent emotion.
+        user_emotion = self.get_most_frequent_emotion(emotions)
 
+        # The current schema for personalisation: basic (only considering activity level and user emotions)
+        next_activity_level = self.basic_get_recommended_activity_level(user_emotion, activity_level)
+        return next_activity_level
+
+    def basic_get_recommended_activity_level(self, user_emotion, current_activity_level):
+        if user_emotion == 0:
+            next_activity_level = current_activity_level + 1 if current_activity_level < 2 else current_activity_level
+        elif user_emotion == 1:
+            next_activity_level = current_activity_level
+        else:
+            next_activity_level = current_activity_level - 1 if current_activity_level > 0 else current_activity_level
+
+        return next_activity_level
+
+    def get_most_frequent_emotion(self, emotions):
         most_frequent_emotion = mode(emotions)
         print(f'Most prevalent emotion: {most_frequent_emotion}')
 
-        if most_frequent_emotion == 0:
-            next_activity_level = activity_level + 1 if activity_level < 2 else activity_level
-        elif most_frequent_emotion == 1:
-            next_activity_level = activity_level
-        else:
-            next_activity_level = activity_level - 1 if activity_level > 0 else activity_level
-
-        return next_activity_level
+        return most_frequent_emotion
 
     def publish_recommended_level(self, id_previous_activity, next_activity_level):
         event_type = 'next_activity_level'

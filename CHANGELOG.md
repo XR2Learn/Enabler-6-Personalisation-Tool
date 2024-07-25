@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.3] - 2024 - 07 - 25
+### Changed 
+- Refactoring
+
+### Added 
+- Support for BM (bio-measurements) modality with data from Magic XRoom.
+
 ## [0.2.2] - 2024-03-12
 ### Changed 
 -  License Update to Apache 2.0.
@@ -77,7 +84,7 @@ Example of Categories to use in each release
 - Just an example of how to use changelog. -->
 
 
-[unreleased]: https://github.com/XR2Learn/Enabler-6-Personalisation-Tool/compare/v0.2.2...master
+[unreleased]: https://github.com/XR2Learn/Enabler-6-Personalisation-Tool/compare/v0.2.3...master
 
 [0.1.0]: https://github.com/XR2Learn/Enabler-6-Personalisation-Tool/releases/tag/v0.1.0
 
@@ -88,3 +95,5 @@ Example of Categories to use in each release
 [0.2.1]: https://github.com/XR2Learn/Enabler-6-Personalisation-Tool/releases/tag/v0.2.1
 
 [0.2.2]: https://github.com/XR2Learn/Enabler-6-Personalisation-Tool/releases/tag/v0.2.2
+
+[0.2.3]: https://github.com/XR2Learn/Enabler-6-Personalisation-Tool/releases/tag/v0.2.3
