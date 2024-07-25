@@ -129,3 +129,5 @@ Please refer to [LICENSE.md](LICENSE.md) document for more details.
 ## Changelog
 
 A list of released versions and the main changes can be found on [Changelog](CHANGELOG.md).
+
+To check your current version, go to the file [setup.cfg](setup.cfg).
