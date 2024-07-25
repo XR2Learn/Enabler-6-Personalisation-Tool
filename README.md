@@ -1,6 +1,6 @@
 ![XR2Learn](https://raw.githubusercontent.com/XR2Learn/.github/5c0fada6136915b389c1cd2151a0dd2cfc4a5aac/images/XR2Learn%20logo.png)
 
-# Enabler 6: Personalisation Tool
+# [XR2Learn Personalization Enablers]: Personalisation Tool
 
 The Personalization Tool utilizes the user’s predicted emotions as the output of the Training and Inference domain,
 together with contextual information, e.g., a user and activity levels, to provide personalized suggestions on the
