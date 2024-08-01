@@ -5,34 +5,34 @@ services:
     ports:
       - "6379:6379"
 
-  personalisation-tool:
-    image: some.registry.com/xr2learn-enablers/personalisation-tool:latest
+  personalization-tool:
+    image: some.registry.com/xr2learn-enablers/personalization-tool:latest
     build:
-      context: 'Personalisation_Tool'
+      context: 'Personalization_Tool'
       dockerfile: 'Dockerfile'
     volumes:
-      - "./Personalisation_Tool:/app"
+      - "./Personalization_Tool:/app"
     working_dir: /app
     environment:
       - REDIS_HOST=redis
-    command: python personalisation_tool/suggest_activity_level.py
+    command: python personalization_tool/suggest_activity_level.py
     depends_on:
       - redis
 
-  demo-ui:
-    image: some.registry.com/xr2learn-enablers/demo-ui:latest
+  dashboard:
+    image: some.registry.com/xr2learn-enablers/dashboard:latest
     build:
-      context: 'DemoUI'
+      context: 'Personalization_Dashboard'
       dockerfile: 'Dockerfile'
     volumes:
-      - "./DemoUI:/app"
+      - "./Personalization_Dashboard:/app"
     working_dir: /app
     environment:
       - REDIS_HOST=redis
     command: python web_app.py
     depends_on:
       - redis
-      - personalisation-tool
+      - personalization-tool
     ports:
       - "8000:8000"
 

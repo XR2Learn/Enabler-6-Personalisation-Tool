@@ -3,7 +3,7 @@ import json
 from statistics import mode
 
 import redis
-from personalisation_tool.conf import REDIS_PORT, REDIS_HOST
+from personalization_tool.conf import REDIS_PORT, REDIS_HOST
 
 
 class PersonalisationTool:

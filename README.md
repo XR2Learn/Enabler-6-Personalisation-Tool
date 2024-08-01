@@ -1,4 +1,4 @@
-# [XR2Learn Personalization Enablers] Personalisation Tool
+# [XR2Learn Personalization Enablers] Personalization Tool
 
 The Personalization Tool utilizes the user’s predicted emotions as the output of the Training and Inference domain,
 together with contextual information, e.g., a user and activity levels, to provide personalized suggestions on the
@@ -8,7 +8,7 @@ The Personalization Tool exploits the Publisher/Subscriber messaging protocol im
 asynchronous, real-time communication between the Personalization Tool, Inference domain and an XR educational software
 implemented using Unity.
 
-A web-based DemoUI is also provided as a graphic interface for better visualizing the personalization tool functionality
+A web-based Dashboard is also provided as a graphic interface for better visualizing the personalization tool functionality
 and how it communicates with the other domain’s components, i.e., multimodal fusion layer and Unity application.
 
 ## Pre-requisites
@@ -30,7 +30,7 @@ The two pre-requisites are:
 
 ### Personalization Tool
 
-1. Navigate to the directory Personalisation_Tool
+1. Navigate to the directory Personalization_Tool
 2. Prepare the virtual environment (Create and activate virtual environment with venv).
 
    `python -m venv ./venv`
@@ -40,9 +40,9 @@ The two pre-requisites are:
 
    `pip install -r requirements.txt`
 
-### DemoUI
+### Personalization Dashboard
 
-1. Navigate to the directory DemoUI
+1. Navigate to the directory `Personalization_Dashboard`
 2. Prepare the virtual environment (Create and activate virtual environment with venv).
 
 `python -m venv ./venv`
@@ -77,30 +77,30 @@ default version of “configuration.json” is provided and can be changed by th
 
 2. Run
 
-   `python personalisation_tool/suggest_activity_level.py`
+   `python personalization_tool/suggest_activity_level.py`
 
 3. Run (in another terminal tab)
 
-   `python personalisation_tool/simulate_input_output.py`
+   `python personalization_tool/simulate_input_output.py`
 
 ### Run using docker images
 
 1. Enter docker image with bash entrypoint
 
-   `REDIS_HOST=redis docker compose run --rm personalisation-tool /bin/bash`
+   `REDIS_HOST=redis docker compose run --rm personalization-tool /bin/bash`
 2. Run simulate input/output script in background
 
-`python personalisation_tool/simulate_input_output.py > out.txt &`
+`python personalization_tool/simulate_input_output.py > out.txt &`
 
 3. Run suggest activity level script
 
-`python personalisation_tool/suggest_activity_level.py`
+`python personalization_tool/suggest_activity_level.py`
 
-### Run DemoUI + Personalisation tool
+### Run Personalization Dashboard + Personalization tool
 
 `docker compose up -d`
 
-Go to `http://172.22.0.3:8000/` to access DemoUI.
+Go to `http://172.22.0.3:8000/` to access Personalization Dashboard.
 
 ## License
 
