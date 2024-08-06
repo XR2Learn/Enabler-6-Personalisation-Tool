@@ -3,6 +3,7 @@ import json
 from statistics import mode
 
 import redis
+
 from personalization_tool.conf import REDIS_PORT, REDIS_HOST
 
 
@@ -46,9 +47,16 @@ class PersonalisationTool:
 
     def publish_recommended_level(self, id_previous_activity, next_activity_level):
         event_type = 'next_activity_level'
+        emotions_frequency = self.calculate_emotions_frequency()
+
         event_data = {
             'id': id_previous_activity,
-            'next_activity_level': next_activity_level
+            'next_activity_level': next_activity_level,
+            'emotion_information': {
+                0: emotions_frequency["boredom"],
+                1: emotions_frequency["engagement"],
+                2: emotions_frequency["frustration"]
+            }
         }
         json_message = json.dumps(event_data)
         result = redis_cli.publish(event_type, json_message)
@@ -98,6 +106,27 @@ class PersonalisationTool:
         message_str = message.decode('utf-8')
         message_dict = json.loads(message_str)
         return message_dict
+
+    def calculate_emotions_frequency(self):
+        emotions = self.emotions_session
+
+        if len(emotions) != 0:
+            emotions_frequency = {
+                'boredom': self.get_emotion_frequency(emotions, 0),
+                'engagement': self.get_emotion_frequency(emotions, 1),
+                'frustration': self.get_emotion_frequency(emotions, 2),
+            }
+        else:
+            emotions_frequency = {
+                'boredom': 0,
+                'engagement': 0,
+                'frustration': 0,
+            }
+        return emotions_frequency
+
+    def get_emotion_frequency(self, emotion_list, emotion_number):
+        frequency = (emotion_list.count(emotion_number) / len(emotion_list)) * 100
+        return frequency
 
 
 if __name__ == '__main__':
