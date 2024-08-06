@@ -68,10 +68,10 @@
                             <button type="submit" id="send_emotion_0" class="btn btn-info col-md-12">Boredom</button>
                         </div>
                         <div class="form-group col-md-12">
-                            <button type="submit" id="send_emotion_1" class="btn btn-success col-md-12">Flow</button>
+                            <button type="submit" id="send_emotion_1" class="btn btn-success col-md-12">Engagement</button>
                         </div>
                         <div class="form-group col-md-12">
-                            <button type="submit" id="send_emotion_2" class="btn btn-danger col-md-12">Anxiety</button>
+                            <button type="submit" id="send_emotion_2" class="btn btn-danger col-md-12">Frustration</button>
                         </div>
                     </div>
                 </form>
@@ -347,8 +347,8 @@
 
         let emotions_index_map = {
             0: 'Boredom',
-            1: 'Flow',
-            2: 'Anxiety'
+            1: 'Engagement',
+            2: 'Frustration'
         };
         for (const emotion of msg.data.emotions_session) {
             // <li class="list-group-item">Cras justo odio</li>
