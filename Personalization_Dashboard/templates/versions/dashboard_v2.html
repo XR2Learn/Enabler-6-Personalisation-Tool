@@ -344,9 +344,9 @@
         }
         $('#recommendation_message')[0].innerHTML = message_recommendation;
 
-        $('#emotions-during-activity').append('<li>Percentage of <b>Boredom</b> emotion: ' + msg.data.emotion_information[0] + '</li>');
-        $('#emotions-during-activity').append('<li>Percentage of <b>Engagement</b> emotion: ' + msg.data.emotion_information[1] + '</li>');
-        $('#emotions-during-activity').append('<li>Percentage of <b>Frustration</b> emotion: ' + msg.data.emotion_information[2] + '</li>');
+        $('#emotions-during-activity').append('<li><b>Boredom</b>: ' + msg.data.emotion_information[0] + '\%</li>');
+        $('#emotions-during-activity').append('<li><b>Engagement</b>: ' + msg.data.emotion_information[1] + '\%</li>');
+        $('#emotions-during-activity').append('<li><b>Frustration</b>: ' + msg.data.emotion_information[2] + '\%</li>');
     });
 
 
