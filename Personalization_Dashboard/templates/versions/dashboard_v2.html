@@ -110,6 +110,7 @@
                 <div id="recommendation_message" class="d-flex justify-content-center"></div>
             </div>
             <div class="card-header">
+                <p> ----------------------- </p>
                 Summary: Emotions During Activity
             </div>
             <div class="card-body d-flex justify-content-center">
@@ -180,6 +181,7 @@
 
     function change_activity_button(activity_started) {
         $('#recommendation_message')[0].innerHTML = "";
+        $('#emotions-during-activity')[0].innerHTML = "";
 
         if (activity_started) {
             $('#start_activity').removeClass('visible');
@@ -341,6 +343,10 @@
             message_recommendation = "This task is a bit too challenging for you. Let's make things easier."
         }
         $('#recommendation_message')[0].innerHTML = message_recommendation;
+
+        $('#emotions-during-activity').append('<li>Percentage of <b>Boredom</b> emotion: ' + msg.data.emotion_information[0] + '</li>');
+        $('#emotions-during-activity').append('<li>Percentage of <b>Engagement</b> emotion: ' + msg.data.emotion_information[1] + '</li>');
+        $('#emotions-during-activity').append('<li>Percentage of <b>Frustration</b> emotion: ' + msg.data.emotion_information[2] + '</li>');
     });
 
 
