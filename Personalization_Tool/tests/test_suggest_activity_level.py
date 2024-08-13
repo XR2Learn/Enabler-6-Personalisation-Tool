@@ -2,14 +2,14 @@ import unittest
 
 import redis
 
-from personalisation_tool.conf import REDIS_HOST, REDIS_PORT
-from personalisation_tool.suggest_activity_level import PersonalisationTool
+from personalization_tool.conf import REDIS_HOST, REDIS_PORT
+from personalization_tool.suggest_activity_level import PersonalizationTool
 
 
 class PersonalisationToolTestCase(unittest.TestCase):
     def setUp(self):
         self.redis_cli = redis.Redis(port=REDIS_PORT, host=REDIS_HOST)
-        self.personalisation_tool = PersonalisationTool(self.redis_cli)
+        self.personalisation_tool = PersonalizationTool(self.redis_cli)
 
     def tearDown(self):
         pass

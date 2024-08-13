@@ -7,7 +7,7 @@ import redis
 from personalization_tool.conf import REDIS_PORT, REDIS_HOST
 
 
-class PersonalisationTool:
+class PersonalizationTool:
     def __init__(self, redis_cli):
         self.redis_cli = redis_cli
         self.pubsub = self.redis_cli.pubsub()
@@ -131,5 +131,5 @@ class PersonalisationTool:
 
 if __name__ == '__main__':
     redis_cli = redis.Redis(port=REDIS_PORT, host=REDIS_HOST)
-    personalisation_tool = PersonalisationTool(redis_cli)
+    personalisation_tool = PersonalizationTool(redis_cli)
     personalisation_tool.run()
