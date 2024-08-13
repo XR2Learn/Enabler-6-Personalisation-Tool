@@ -112,9 +112,9 @@ class PersonalisationTool:
 
         if len(emotions) != 0:
             emotions_frequency = {
-                'boredom': self.get_emotion_frequency(emotions, 0),
-                'engagement': self.get_emotion_frequency(emotions, 1),
-                'frustration': self.get_emotion_frequency(emotions, 2),
+                'boredom': f'{self.get_emotion_frequency(emotions, 0):.2f}',
+                'engagement': f'{self.get_emotion_frequency(emotions, 1):.2f}',
+                'frustration': f'{self.get_emotion_frequency(emotions, 2):.2f}',
             }
         else:
             emotions_frequency = {
