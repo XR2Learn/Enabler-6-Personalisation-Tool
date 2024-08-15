@@ -26,10 +26,22 @@ class PersonalizationTool:
         user_emotion = self.get_most_frequent_emotion(emotions)
 
         # The current schema for personalisation: basic (only considering activity level and user emotions)
-        next_activity_level = self.basic_get_recommended_activity_level(user_emotion, activity_level)
+        next_activity_level = self.get_recommended_activity_level(user_emotion, activity_level)
         return next_activity_level
 
-    def basic_get_recommended_activity_level(self, user_emotion, current_activity_level):
+    def get_recommended_activity_level(self, user_emotion, activity_level):
+        # if user in flow, nothing changes
+        if user_emotion == 1:
+            next_activity_level = activity_level
+        else:
+            if user_emotion == 2:
+                next_activity_level = 0 if self.user_level == 0 else 1
+            elif user_emotion == 0:
+                next_activity_level = 2 if self.user_level == 1 else 1
+
+        return next_activity_level
+
+    def basic_get_recommended_activity_level(self, user_emotion, current_activity_level, user_skill_level=None):
         if user_emotion == 0:
             next_activity_level = current_activity_level + 1 if current_activity_level < 2 else current_activity_level
         elif user_emotion == 1:
