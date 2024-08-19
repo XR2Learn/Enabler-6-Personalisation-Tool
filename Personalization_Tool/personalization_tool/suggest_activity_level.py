@@ -33,11 +33,28 @@ class PersonalizationTool:
         # if user in flow, nothing changes
         if user_emotion == 1:
             next_activity_level = activity_level
-        else:
-            if user_emotion == 2:
-                next_activity_level = 0 if self.user_level == 0 else 1
-            elif user_emotion == 0:
-                next_activity_level = 2 if self.user_level == 1 else 1
+
+        elif user_emotion == 2:
+            if activity_level == 1 or activity_level == 0:
+                next_activity_level = 0
+
+            # activity level is 2
+            else:
+                if self.user_level == 1 or self.user_level == 2:
+                    next_activity_level = 1
+                else:
+                    next_activity_level = 0
+
+        elif user_emotion == 0:
+            if activity_level == 2 or activity_level == 1:
+                next_activity_level = 2
+
+            # activity level is 0
+            else:
+                if self.user_level == 1 or self.user_level == 0:
+                    next_activity_level = 1
+                else:
+                    next_activity_level = 2
 
         return next_activity_level
 
