@@ -39,4 +39,20 @@ class PersonalisationToolTestCase(unittest.TestCase):
         emotions = [1, 2, 2, 2, 0]
         emotion = 1
         frequency = self.personalisation_tool.get_emotion_frequency(emotions, emotion)
-        self.assertEqual(frequency, 1/5 * 100)
+        self.assertEqual(frequency, 1 / 5 * 100)
+
+    def test_calculate_recommended_level_should_decrease_level_intense(self):
+        self.personalisation_tool.user_level = 0
+        expected_activity_level = 0
+        emotions = [1, 2, 2, 2]
+        activity_level = 2
+        recommended_level = self.personalisation_tool.calculate_recommended_level(emotions, activity_level)
+        self.assertEqual(recommended_level, expected_activity_level)
+
+    def test_calculate_recommended_level_should_increase_level_intense(self):
+        self.personalisation_tool.user_level = 2
+        expected_activity_level = 2
+        emotions = [0, 0, 0, 0, 0, 0, 1, 2, 2, 2]
+        activity_level = 0
+        recommended_level = self.personalisation_tool.calculate_recommended_level(emotions, activity_level)
+        self.assertEqual(recommended_level, expected_activity_level)
