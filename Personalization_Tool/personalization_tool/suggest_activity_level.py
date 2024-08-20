@@ -3,10 +3,11 @@ import json
 from statistics import mode
 
 import redis
-from personalisation_tool.conf import REDIS_PORT, REDIS_HOST
+
+from personalization_tool.conf import REDIS_PORT, REDIS_HOST
 
 
-class PersonalisationTool:
+class PersonalizationTool:
     def __init__(self, redis_cli):
         self.redis_cli = redis_cli
         self.pubsub = self.redis_cli.pubsub()
@@ -25,10 +26,39 @@ class PersonalisationTool:
         user_emotion = self.get_most_frequent_emotion(emotions)
 
         # The current schema for personalisation: basic (only considering activity level and user emotions)
-        next_activity_level = self.basic_get_recommended_activity_level(user_emotion, activity_level)
+        next_activity_level = self.get_recommended_activity_level(user_emotion, activity_level)
         return next_activity_level
 
-    def basic_get_recommended_activity_level(self, user_emotion, current_activity_level):
+    def get_recommended_activity_level(self, user_emotion, activity_level):
+        # if user in flow, nothing changes
+        if user_emotion == 1:
+            next_activity_level = activity_level
+
+        elif user_emotion == 2:
+            if activity_level == 1 or activity_level == 0:
+                next_activity_level = 0
+
+            # activity level is 2
+            else:
+                if self.user_level == 1 or self.user_level == 2:
+                    next_activity_level = 1
+                else:
+                    next_activity_level = 0
+
+        elif user_emotion == 0:
+            if activity_level == 2 or activity_level == 1:
+                next_activity_level = 2
+
+            # activity level is 0
+            else:
+                if self.user_level == 1 or self.user_level == 0:
+                    next_activity_level = 1
+                else:
+                    next_activity_level = 2
+
+        return next_activity_level
+
+    def basic_get_recommended_activity_level(self, user_emotion, current_activity_level, user_skill_level=None):
         if user_emotion == 0:
             next_activity_level = current_activity_level + 1 if current_activity_level < 2 else current_activity_level
         elif user_emotion == 1:
@@ -46,9 +76,16 @@ class PersonalisationTool:
 
     def publish_recommended_level(self, id_previous_activity, next_activity_level):
         event_type = 'next_activity_level'
+        emotions_frequency = self.calculate_emotions_frequency()
+
         event_data = {
             'id': id_previous_activity,
-            'next_activity_level': next_activity_level
+            'next_activity_level': next_activity_level,
+            'emotion_information': {
+                0: emotions_frequency["boredom"],
+                1: emotions_frequency["engagement"],
+                2: emotions_frequency["frustration"]
+            }
         }
         json_message = json.dumps(event_data)
         result = redis_cli.publish(event_type, json_message)
@@ -99,8 +136,29 @@ class PersonalisationTool:
         message_dict = json.loads(message_str)
         return message_dict
 
+    def calculate_emotions_frequency(self):
+        emotions = self.emotions_session
+
+        if len(emotions) != 0:
+            emotions_frequency = {
+                'boredom': f'{self.get_emotion_frequency(emotions, 0):.2f}',
+                'engagement': f'{self.get_emotion_frequency(emotions, 1):.2f}',
+                'frustration': f'{self.get_emotion_frequency(emotions, 2):.2f}',
+            }
+        else:
+            emotions_frequency = {
+                'boredom': 0,
+                'engagement': 0,
+                'frustration': 0,
+            }
+        return emotions_frequency
+
+    def get_emotion_frequency(self, emotion_list, emotion_number):
+        frequency = (emotion_list.count(emotion_number) / len(emotion_list)) * 100
+        return frequency
+
 
 if __name__ == '__main__':
     redis_cli = redis.Redis(port=REDIS_PORT, host=REDIS_HOST)
-    personalisation_tool = PersonalisationTool(redis_cli)
+    personalisation_tool = PersonalizationTool(redis_cli)
     personalisation_tool.run()

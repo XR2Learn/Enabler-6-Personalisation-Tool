@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>XR2Learn Demo UI - {% block title %}{% endblock %}</title>
+    <title>XR2Learn Personalization Dashboard - {% block title %}{% endblock %}</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -55,7 +55,7 @@
 
                 <!-- Heading -->
                 <div class="sidebar-heading">
-                    Demos
+                    Versions
                 </div>
 
 
@@ -63,19 +63,19 @@
                 <li class="nav-item{% if active_page == 'demo_enabler_six' %} active{% endif %}">
                     <a class="nav-link" href="{{ url_for('demo_enabler_six_v1') }}">
                         <i class="fas fa-fw fa-heart"></i>
-                        <span>Personalisation Tool v1</span></a>
+                        <span>Personalization Tool v1</span></a>
                 </li>
                 <li class="nav-item{% if active_page == 'demo_enabler_six' %} active{% endif %}">
                     <a class="nav-link" href="{{ url_for('demo_enabler_six_v2') }}">
                         <i class="fas fa-fw fa-heart"></i>
-                        <span>Personalisation Tool v2</span></a>
+                        <span>Personalization Tool v2</span></a>
                 </li>
 
-<!--                <li class="nav-item{% if active_page == 'demo_enabler_six' %} active{% endif %}">-->
-<!--                    <a class="nav-link" href="{{ url_for('demo_enabler_six') }}">-->
-<!--                        <i class="fas fa-fw fa-heart"></i>-->
-<!--                        <span>Personalisation Tool v3</span></a>-->
-<!--                </li>-->
+                <li class="nav-item{% if active_page == 'demo_enabler_six' %} active{% endif %}">
+                    <a class="nav-link" href="{{ url_for('demo_enabler_six') }}">
+                        <i class="fas fa-fw fa-heart"></i>
+                        <span>Personalization Tool v3</span></a>
+                </li>
 
                 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
