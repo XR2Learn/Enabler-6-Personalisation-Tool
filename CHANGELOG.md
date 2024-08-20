@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Name changes: from DemoUI to Personalization Dashboard
 - Emotions Aggregation calculated from Inference Tools outputs is now shown as frequency, e.g., Engagement: 30%
 
+### Removed
+- Feedback message on Personalization Dashboard.
+
 ## [0.2.3] - 2024 - 07 - 25
 ### Changed 
 - Refactoring
