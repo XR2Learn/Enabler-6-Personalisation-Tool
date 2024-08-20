@@ -332,7 +332,7 @@
         if (current_activity_level > next_activity_level) {
             message_recommendation = "This task is a bit too challenging for you. Let's make things easier."
         }
-        $('#recommendation_message')[0].innerHTML = message_recommendation;
+        // $('#recommendation_message')[0].innerHTML = message_recommendation;
 
         $('#emotions-during-activity').append('<li><b>Boredom</b>: ' + msg.data.emotion_information[0] + '\%</li>');
         $('#emotions-during-activity').append('<li><b>Engagement</b>: ' + msg.data.emotion_information[1] + '\%</li>');
