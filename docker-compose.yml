@@ -5,7 +5,7 @@ services:
       - "6379:6379"
 
   personalization-tool:
-    image: some.registry.com/xr2learn-enablers/personalization-tool:latest
+    image: ghcr.io/xr2learn/personalization-tool:latest
     build:
       context: 'Personalization_Tool'
       dockerfile: 'Dockerfile'
@@ -19,7 +19,7 @@ services:
       - redis
 
   dashboard:
-    image: some.registry.com/xr2learn-enablers/dashboard:latest
+    image: ghcr.io/xr2learn/dashboard:latest
     build:
       context: 'Personalization_Dashboard'
       dockerfile: 'Dockerfile'
@@ -36,7 +36,7 @@ services:
       - "8000:8000"
 
   fusion-layer:
-    image: some.registry.com/xr2learn-enablers/fusion-layer:latest
+    image: ghcr.io/xr2learn/fusion-layer:latest
     volumes:
       - "./datasets:/app/datasets"
       - "./outputs:/app/outputs"

@@ -43,21 +43,21 @@ thread = None
 thread_lock = Lock()
 
 
-@app.route("/demo_enabler_six", methods=["get"])
+@app.route("/dashboard", methods=["get"])
 def demo_enabler_six():
     context = TEMPLATE_CONTEXT_CONFS.copy()
     context['active_page'] = 'demo_enabler_six'
     return render_template("versions/dashboard_v3.html", **context)
 
 
-@app.route("/demo_enabler_six_v1", methods=["get"])
+@app.route("/dashboard_v1", methods=["get"])
 def demo_enabler_six_v1():
     context = TEMPLATE_CONTEXT_CONFS.copy()
     context['active_page'] = 'demo_enabler_six_v1'
     return render_template("versions/dashboard_v1.html", **context)
 
 
-@app.route("/demo_enabler_six_v2", methods=["get"])
+@app.route("/dashboard_v2", methods=["get"])
 def demo_enabler_six_v2():
     context = TEMPLATE_CONTEXT_CONFS.copy()
     context['active_page'] = 'demo_enabler_six_v2'

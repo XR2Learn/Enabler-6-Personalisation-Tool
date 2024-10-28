@@ -6,8 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.0.0] - 2024 - 10 - 28
 ### Added 
 - A new version of Personalization Dashboard for cases in which Unity App inputs are not simulated.
+- Containers registry
+- Personalization heuristics now takes into consideration the User Skill Level to calculate personalized suggestions.
 
 ### Changed 
 - Refactoring
@@ -107,3 +111,5 @@ Example of Categories to use in each release
 [0.2.2]: https://github.com/XR2Learn/Enabler-6-Personalisation-Tool/releases/tag/v0.2.2
 
 [0.2.3]: https://github.com/XR2Learn/Enabler-6-Personalisation-Tool/releases/tag/v0.2.3
+
+[1.0.0]: https://github.com/XR2Learn/Enabler-6-Personalisation-Tool/releases/tag/v1.0.0
