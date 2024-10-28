@@ -8,12 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [1.0.0] - 2024 - 10 - 28
-### Added 
+### Added
 - A new version of Personalization Dashboard for cases in which Unity App inputs are not simulated.
 - Containers registry
 - Personalization heuristics now takes into consideration the User Skill Level to calculate personalized suggestions.
 
-### Changed 
+### Changed
 - Refactoring
 - Name changes: from DemoUI to Personalization Dashboard
 - Emotions Aggregation calculated from Inference Tools outputs is now shown as frequency, e.g., Engagement: 30%
@@ -22,14 +22,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Feedback message on Personalization Dashboard.
 
 ## [0.2.3] - 2024 - 07 - 25
-### Changed 
+### Changed
 - Refactoring
 
-### Added 
+### Added
 - Support for BM (bio-measurements) modality with data from Magic XRoom.
 
 ## [0.2.2] - 2024-03-12
-### Changed 
+### Changed
 -  License Update to Apache 2.0.
 
 ### Known Issues

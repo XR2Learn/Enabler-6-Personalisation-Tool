@@ -100,7 +100,7 @@ default version of “configuration.json” is provided and can be changed by th
 
 `docker compose up -d`
 
-Go to `http://172.22.0.3:8000/` to access Personalization Dashboard.
+Go to `http://127.0.0.1:8000/` to access Personalization Dashboard.
 
 ## License
 
